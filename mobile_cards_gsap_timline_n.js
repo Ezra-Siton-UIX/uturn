@@ -137,5 +137,5 @@ function cards_mobile() {
     }
   }
 }
-
+ 
 cards_mobile();
