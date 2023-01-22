@@ -50,7 +50,6 @@ window.addEventListener("resize", function (event) {
   // update your variables
   end_animation = triggerElement.offsetHeight * sections.length * speed;
   if (window.innerWidth > 991) {
-    location.reload();
   }
 });
 
@@ -81,7 +80,7 @@ let tl_sections = gsap.timeline({
         );
         /* control loadAnimation */
         loadAnimation.goToAndStop(currentFrame, true);
-      }, 3000);
+      }, 1000);
     },
     onUpdate: (self) => {
       let currentFrame = Math.floor(
@@ -229,10 +228,9 @@ links.forEach((a, i) => {
     }
 
     gsap.to(window, {
-      duration: 1.2,
+      duration: 1.5,
       scrollTo: tl_sections.scrollTrigger.start + end_animation * scroll_to,
-
-      ease: "power1.out"
+      ease: "power3.out"
     });
   });
 });
@@ -243,5 +241,3 @@ tl_sections.pause("bug do not delete this line");
 document.querySelector(
   "[scrolltrigger_triggerElement='desktop']"
 ).style.opacity = "1";
-
-console.log("hellooooooooo", end_animation, tl_sections.scrollTrigger.end);
