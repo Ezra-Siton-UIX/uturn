@@ -1,7 +1,7 @@
-let is_mobile = window.screen.width < 991;
+let is_mobile = window.innerWidth < 991;
 
 window.addEventListener("resize", function (event) {
-  is_mobile = window.screen.width < 991;
+  is_mobile = window.innerWidth < 991;
 });
 
 function cards_mobile() {
