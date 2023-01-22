@@ -1,9 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (event) {
   //the event occurred
 
-  /* Shapes */
-  const not_stage = true;
-
   function removeClass(arraindex, item_name) {
     arraindex.forEach((i) => {
       let item = document.querySelector(
@@ -25,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
   }
 
   gsap.registerPlugin(ScrollTrigger);
-  var svgContainer = document.getElementById("svgContainer");
 
   var loadAnimation = bodymovin.loadAnimation({
     container: document.querySelector("[scrolltrigger_svgContainer]"), // Required
@@ -40,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   const sections = gsap.utils.toArray("[animate_section]");
 
-  const speed = 2.3;
+  const speed = 2.25;
 
   let triggerElement = document.querySelector("[scrolltrigger_triggerElement]");
   let inner_progress = document.querySelector("[inner_progress]");
@@ -54,6 +50,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     // update your variables
     end_animation = triggerElement.offsetHeight * sections.length * speed;
     trigger_offsetTop = triggerElement.getBoundingClientRect().top;
+    add_links_to_steps();
+    /* do this only on desktop breakpoint */
+    if (window.innerWidth > 991) {
+      location.reload();
+    }
   });
 
   let tl_sections = gsap.timeline({
@@ -65,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         snapTo: [0, 0.01, 0.25, 0.5, 0.75, 1],
         directional: true,
         inertia: true,
-        duration: { min: 0.2, max: 0.5 },
+        duration: { min: 0.3, max: 0.6 },
 
         delay: 0
       },
@@ -73,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       pin: true, // pin the trigger element while activelength
       start: "top top", // when the top of the trigger hits the top of the viewport
       end: "+=" + end_animation, // end after scrolling 500px beyond the start
-      scrub: 0.2,
+      scrub: 0.1,
       markers: false,
       onEnter: function () {
         console.log("onEnter to how it works");
@@ -109,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         addClass(1, "circle");
         addClass(1, "step_menu_title");
 
-        const divide_by = 4.15;
+        const divide_by = 4.1;
 
         if (self.progress >= (1 / divide_by) * 0) {
           removeClass([2, 3, 4, 5], "circle");
@@ -199,36 +200,39 @@ document.addEventListener("DOMContentLoaded", function (event) {
   /*### INNER MENU ###*/
 
   let links = gsap.utils.toArray("[step_div_wrap]");
-  links.forEach((a, i) => {
-    a.addEventListener("click", (e) => {
-      //e.preventDefault();
 
-      let scroll_to = 0;
+  function add_links_to_steps() {
+    links.forEach((a, i) => {
+      a.addEventListener("click", (e) => {
+        //e.preventDefault();
+        let scroll_to = 0;
 
-      if (i == 0) {
-        scroll_to = 0;
-      }
-      if (i == 1) {
-        scroll_to = 0.25;
-      }
-      if (i == 2) {
-        scroll_to = 0.5;
-      }
-      if (i == 3) {
-        scroll_to = 0.75;
-      }
-      if (i == 4) {
-        scroll_to = 1;
-      }
+        if (i == 0) {
+          scroll_to = 0;
+        }
+        if (i == 1) {
+          scroll_to = 0.25;
+        }
+        if (i == 2) {
+          scroll_to = 0.5;
+        }
+        if (i == 3) {
+          scroll_to = 0.75;
+        }
+        if (i == 4) {
+          scroll_to = 1;
+        }
 
-      gsap.to(window, {
-        duration: 1.5,
-        scrollTo: trigger_offsetTop + end_animation * scroll_to,
+        gsap.to(window, {
+          duration: 1.5,
+          scrollTo: trigger_offsetTop + end_animation * scroll_to,
 
-        ease: "power2.out"
+          ease: "power2.out"
+        });
       });
     });
-  });
+  }
+  add_links_to_steps();
 
   /* MEGA BUG - חייב להיות רשום end_2 אחרת ה לא עובד */
   tl_sections.pause("bug do not delete this line");
