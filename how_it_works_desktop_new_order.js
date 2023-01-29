@@ -41,7 +41,7 @@ mm.add("(min-width: 991px)", () => {
 
   const sections = gsap.utils.toArray("[animate_section]");
 
-  const speed = 2.3;
+  const speed = 1.5;
 
   let triggerElement = document.querySelector("[scrolltrigger_triggerElement]");
   let inner_progress = document.querySelector("[inner_progress]");
@@ -73,7 +73,7 @@ mm.add("(min-width: 991px)", () => {
       pin: true, // pin the trigger element while activelength
       start: "top top", // when the top of the trigger hits the top of the viewport
       end: "+=" + end_animation, // end after scrolling 500px beyond the start
-      scrub: 0.2,
+      scrub: 0.1,
       markers: false,
       onEnter: function (self) {
         setTimeout(() => {
